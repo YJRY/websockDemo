@@ -42,14 +42,14 @@
             setConnected(true);
             console.log('Connected:' + frame);
             //监听的路径以及回调
-            stompClient.subscribe('/Pubsub/user/1', function (response) {
+            stompClient.subscribe('/request/user/1', function (response) {
                 console.log("订阅成功");
                 showResponse(response.body);
             });
             sendMsg();
         });
         function sendMsg() {
-            stompClient.send("/Pubsub/hello", {atytopic:"greetings"}, JSON.stringify({ 'name': name }));
+            stompClient.send("/request/hello", {atytopic:"greetings"}, JSON.stringify({ 'name': name }));
         }
 
     }
