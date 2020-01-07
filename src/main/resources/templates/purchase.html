@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购买测试</title>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<h1>抢购产品测试</h1>
+<script>
+    for (var i = 1; i < 3000; i++) {
+        var params = {
+            userId: 1,
+            productId: 1,
+            quantity: 1
+        };
+        $.post("http://localhost:8080/purchase", params, function (data) {
+
+        });
+    }
+</script>
+</body>
+</html>

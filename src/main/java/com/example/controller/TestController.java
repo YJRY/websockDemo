@@ -41,6 +41,11 @@ public class TestController {
         return "receiveUser";
     }
 
+    @RequestMapping("/purchase")
+    public String purchase() {
+        return "purchase";
+    }
+
     //订阅监测
     @SubscribeMapping("/user/{id}")//订阅
     public void subscribe(@DestinationVariable Integer id) {

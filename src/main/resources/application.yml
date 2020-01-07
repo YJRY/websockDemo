@@ -2,10 +2,10 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/srqc_springboot
+    url: jdbc:mysql://localhost:3306/srqc_springboot?serverTimezone=GMT
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     tomcat:
       max-idle: 10
       max-active: 50

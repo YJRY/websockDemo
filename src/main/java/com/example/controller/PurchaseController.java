@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.service.PurchaseRecordService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ public class PurchaseController {
     @Resource
     private PurchaseRecordService purchaseRecordService;
 
-    @GetMapping("/purchase")
+    @PostMapping("/purchase")
     public Result purchase(Long userId, Long productId, Integer quantity) {
         boolean success = purchaseRecordService.purchase(userId, productId, quantity);
         String msg = success ? "抢购成功" : "抢购失败";
