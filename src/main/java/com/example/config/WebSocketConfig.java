@@ -9,16 +9,18 @@ import org.springframework.web.socket.config.annotation.*;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        //设置连接端点，跨域以及sockJS支持
+        //设置连接端点，跨域以及sockJS支持。客户端连接示例：http://localhost:8080/ws
         registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setUserDestinationPrefix("/user")
-                //客户端发送消息时的前缀，和订阅无关，可和服务端端点重合
-                .setApplicationDestinationPrefixes("/Pubsub")
-                //设置服务端推送消息的端点，包括发送普通消息和订阅消息
-                .enableSimpleBroker("/Pubsub", "/topic");
+        //设置发送给指定用户时频道的前缀。默认为user，可以不进行该项设置
+        //用于SimpMessagingTemplate的convertAndSendToUser("user", {channel}, {data})方法
+        registry.setUserDestinationPrefix("/user");
+        //服务端点请求的前缀
+        registry.setApplicationDestinationPrefixes("/request");
+        //客户端订阅路径的前缀
+        registry.enableSimpleBroker("/sub", "/topic");
     }
 }

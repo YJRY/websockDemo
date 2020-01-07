@@ -27,19 +27,16 @@
 <script type="text/javascript">
     var stompClient = null;
     //gateway网关的地址
-    var host = "http://127.0.0.1:8080/socket";
-
     function setConnected(connected) {
         document.getElementById('connect').disabled = connected;
         document.getElementById('disconnect').disabled = !connected;
         document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
         $('#response').html();
     }
-
     // SendUser ***********************************************
     function connect() {
         //地址+端点路径，构建websocket链接地址,注意，对应config配置里的addEndpoint
-        var socket = new SockJS(host + '/ws');
+        var socket = new SockJS('http://localhost:8080/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             setConnected(true);
