@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class PurchaseRecordService {
@@ -17,6 +18,8 @@ public class PurchaseRecordService {
     private ProductDao productDao;
     @Resource
     private PurchaseRecordDao purchaseRecordDao;
+    @Resource
+    private RedisService redisService;
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public boolean purchase(long userId, long productId, int quantity) {
@@ -50,9 +53,14 @@ public class PurchaseRecordService {
                 continue;
             }
             PurchaseRecord record = PurchaseRecord.init(userId, product, quantity);
-            purchaseRecordDao.addRecord(record);
+//            purchaseRecordDao.addRecord(record);
+            redisService.lPush("purchaseRecord", record);
             return true;
         }
         return false;
+    }
+
+    public void batchAddRecords(List<PurchaseRecord> records){
+        purchaseRecordDao.batchAddRecords(records);
     }
 }

@@ -7,4 +7,10 @@
         INSERT INTO t_purchase_record(user_id, product_id, price, quantity, sum, purchase_date, note) VALUES
         (#{userId}, #{productId}, #{price}, #{quantity}, #{sum}, #{purchaseDate}, #{note})
     </insert>
+    <insert id="batchAddRecords">
+        INSERT INTO t_purchase_record(user_id, product_id, price, quantity, sum, purchase_date, note) VALUES
+        <foreach collection="list" item="record" separator=",">
+            (#{record.userId}, #{record.productId}, #{record.price}, #{record.quantity}, #{record.sum}, #{record.purchaseDate}, #{record.note})
+        </foreach>
+    </insert>
 </mapper>
